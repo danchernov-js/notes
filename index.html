@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заметки</title>
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <div class="container" id="app">
+      <div class="card">
+        <h1 :style="{
+            color: inputValue.length < 5 ? 'darkred' : 'darkblue',
+            fontSize: inputValue.length < 5 ? '2rem' : '1.5rem',
+        }">{{ title }}</h1>
+        <div class="form-control">
+          <input
+            type="text"
+            v-model="inputValue"
+            :placeholder="placeholderString"
+            @keypress.enter="addNewNote"
+            autofocus
+          />
+        </div>
+        <button class="btn" v-on:click="addNewNote">Добавить заметку</button>
+        <hr />
+        <ul class="list" v-if="notes.length !== 0">
+          <li class="list-item" v-for="(note, i) in notes">
+              {{ i + 1 }}. {{ toUpperCase(note) }}
+              <button class="btn danger" @click="removeNote(i)">удалить</button>
+          </li>
+          <hr>
+          <li>
+            <strong>Общее количество: {{ notes.length }} | Удвоенное: {{ doubleCount }}</strong>
+          </li>
+        </ul>
+        <div v-else>Здесь будут ваши заметки.</div>
+      </div>
+    </div>
+
+    <script src="dist/index_bundle.js"></script>
+  </body>
+</html>
